@@ -55,6 +55,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+    implementation("com.google.accompanist:accompanist-pager:0.19.0")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.19.0")
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
