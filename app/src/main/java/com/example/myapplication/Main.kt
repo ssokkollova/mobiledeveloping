@@ -23,4 +23,7 @@ fun Main() {
 
     println("Стоимость $kgToPrice кг конфет: $totalPrice рублей")
     println("На $money рублей можно купить $kgToBuy кг конфет")
+
+
+    Zadanie2v26();
 }
