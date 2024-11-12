@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import org.json.JSONObject
 import com.example.myapplication.data.WeatherModel
+import com.example.myapplication.screens.DialogSearch
 
 const val API_KEY = "7f6eebb6101546f29f2122941242210"
 
@@ -35,6 +36,9 @@ class MainActivity : ComponentActivity() {
             MyApplicationTheme {
                 val daysList = remember {
                     mutableStateOf(listOf<WeatherModel>())
+                }
+                val dialogState = remember {
+                    mutableStateOf(false)
                 }
                 val currentDay = remember {
                     mutableStateOf(WeatherModel(
@@ -49,6 +53,11 @@ class MainActivity : ComponentActivity() {
                     )
                     )
                 }
+                if(dialogState.value){
+                    DialogSearch(dialogState, onSumbit = {
+                        getData(it, this, daysList, currentDay)
+                    })
+                }
                 getData("London", this, daysList, currentDay)
                 Image(
                     painter = painterResource(id = R.drawable.background_im),
@@ -59,7 +68,12 @@ class MainActivity : ComponentActivity() {
                     contentScale = ContentScale.FillHeight
                 )
                 Column {
-                    MainCard(currentDay)
+                    MainCard(currentDay, onClickSync = {
+                        getData("London", this@MainActivity, daysList, currentDay)
+                    }, onClickSearch = {
+                        dialogState.value = true
+                    }
+                    )
                     TabLayout(daysList,currentDay)
                 }
             }
