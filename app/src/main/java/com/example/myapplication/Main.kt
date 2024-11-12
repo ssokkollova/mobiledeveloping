@@ -26,4 +26,5 @@ fun Main() {
 
 
     Zadanie2v26();
+    Zadanie3v26();
 }
