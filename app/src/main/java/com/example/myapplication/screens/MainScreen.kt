@@ -40,9 +40,9 @@ import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.MutableState
 
-@Preview(showBackground = true)
+
 @Composable
-fun MainCard() {
+fun MainCard(currentDay: MutableState<WeatherModel>) {
     Column(
         modifier = Modifier
             .padding(5.dp),
@@ -71,12 +71,12 @@ fun MainCard() {
                     ) {
                         Text(
                             modifier = Modifier.padding(top = 8.dp),
-                            text = "20 Jun 2022 13:00",
+                            text = currentDay.value.time,
                             style = TextStyle(fontSize = 15.sp),
                             color = Color.White
                         )
                         AsyncImage(
-                            model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
+                            model = " + currentDay.value.icon",
                             contentDescription = "im2",
                             modifier = Modifier
                                 .padding(
@@ -87,17 +87,17 @@ fun MainCard() {
                         )
                     }
                     Text(
-                        text = "Madrid",
+                        text = currentDay.value.city,
                         style = TextStyle(fontSize = 25.sp),
                         color = Color.White
                     )
                     Text(
-                        text = "23°C",
+                        text = currentDay.value.currentTemp.toFloat().toInt().toString() + "°C",
                         style = TextStyle(fontSize = 65.sp),
                         color = Color.White
                     )
                     Text(
-                        text = "Sunny",
+                        text = currentDay.value.condition,
                         style = TextStyle(fontSize = 16.sp),
                         color = Color.White
                     )
@@ -116,7 +116,9 @@ fun MainCard() {
                             )
                         }
                         Text(
-                            text = "23°C/12°C",
+                            text = "${currentDay.value
+                                .maxTemp.toFloat().toInt()}°C/${currentDay
+                                .value.minTemp.toFloat().toInt()}°C",
                             style = TextStyle(fontSize = 16.sp),
                             color = Color.White
                         )
