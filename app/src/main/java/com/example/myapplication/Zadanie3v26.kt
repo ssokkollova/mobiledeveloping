@@ -9,6 +9,6 @@ fun Zadanie3v26() {
         for (j in 1..i) {
             print("*")
         }
-
+        println();
     }
 }

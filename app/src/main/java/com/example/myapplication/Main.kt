@@ -1,6 +1,6 @@
 package com.example.myapplication
 
-fun Main() {
+fun main() {
     print("Введите количество килограммов конфет: ")
     val kg = readLine()!!.toDouble()
 
@@ -27,4 +27,6 @@ fun Main() {
 
     Zadanie2v26();
     Zadanie3v26();
+    Zadanie4v26();
+    Zadanie5();
 }
