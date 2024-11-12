@@ -11,8 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
+
 @Composable
-fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
+fun MainTopBar(
+    title: String,
+    scaffoldState: ScaffoldState,
+    onFavClick: () -> Unit
+) {
     val coroutine = rememberCoroutineScope()
     TopAppBar(
         title = {
@@ -35,7 +40,7 @@ fun MainTopBar(title: String, scaffoldState: ScaffoldState) {
         },
         actions = {
             IconButton(
-                onClick = {
+                onClick = { onFavClick()
                 }
             ) {
                 Icon(
