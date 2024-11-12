@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,8 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.ui_components.DrawerMenu
 import com.example.myapplication.ui_components.MainTopBar
 import com.example.myapplication.utils.DrawerEvents
+import com.example.myapplication.utils.IdArrayList
+import com.example.myapplication.utils.ListItem
 import kotlinx.coroutines.launch
 
 
@@ -25,6 +28,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val scaffoldState = rememberScaffoldState()
             val coroutineScope = rememberCoroutineScope()
+            val mainList = remember {
+                mutableStateOf(getListItemsByIndex(0, this))
+            }
             val topBarTitle = remember {
                 mutableStateOf("Грибы")
             }
@@ -42,6 +48,8 @@ class MainActivity : ComponentActivity() {
                             when(event){
                                 is DrawerEvents.OnItemClick ->{
                                     topBarTitle.value = event.title
+                                    mainList.value = getListItemsByIndex(
+                                        event.index, this@MainActivity)
                                 }
                             }
                             coroutineScope.launch {
@@ -55,5 +63,19 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+private fun getListItemsByIndex(index: Int, context: Context): List<ListItem>{
+    val list = ArrayList<ListItem>()
+    val arrayList = context.resources.getStringArray(IdArrayList.listId[index])
+    arrayList.forEach { item ->
+        val itemArray = item.split("|")
+        list.add(
+            ListItem(
+                itemArray[0],
+                itemArray[1]
+            )
+        )
+    }
+    return list
 }
 
