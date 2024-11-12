@@ -38,6 +38,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.MutableState
 
 @Preview(showBackground = true)
 @Composable
@@ -138,7 +139,7 @@ fun MainCard() {
 
         @OptIn(ExperimentalPagerApi::class)
         @Composable
-        fun TabLayout() {
+        fun TabLayout(daysList: MutableState<List<WeatherModel>>) {
             val tabList = listOf("HOURS", "DAYS")
             val pagerState = rememberPagerState()
             val tabIndex = pagerState.currentPage
@@ -185,28 +186,7 @@ fun MainCard() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     itemsIndexed(
-                        listOf(
-                            WeatherModel(
-                                "London",
-                                "10:00",
-                                "25°C",
-                                "Sunny",
-                                "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                                "",
-                                "",
-                                ""
-                            ),
-                            WeatherModel(
-                                "London",
-                                "26-07-2022",
-                                "",
-                                "Sunny",
-                                "//cdn.weatherapi.com/weather/64x64/day/176.png",
-                                "26°C",
-                                "12°C",
-                                "info"
-                            )
-                        )
+                        daysList.value
                     ) {
                             _, item -> ListItem(item)
                     }
